@@ -1,0 +1,117 @@
+Slip 1a and 3a 
+
+activitymain.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+ xmlns:tools="http://schemas.android.com/tools"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:orientation="vertical"
+ tools:context=".MainActivity">
+ <TextView
+ android:id="@+id/textView"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:text="Hello World!"
+ />
+ <EditText
+ android:id="@+id/t1"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_marginTop="63dp"
+ android:layout_marginBottom="105dp"
+ />
+ <Button
+ android:id="@+id/button"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:text="send"
+ />
+</LinearLayout>
+
+----------------------------
+secondactivity.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+ xmlns:tools="http://schemas.android.com/tools"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ tools:context=".check2">
+ <TextView
+ android:id="@+id/txtv1"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ />
+ <TextView
+ android:id="@+id/txtv2"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ />
+</LinearLayout>
+
+----------------------------
+Mainactivity.java
+
+
+
+public class MainActivity extends AppCompatActivity {
+ Button b1;
+ EditText t1;
+ TextView txtv;
+ Intent intent;
+ String s1;
+ int i,num;
+ long f=1;
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+ b1 = findViewById(R.id.button);
+ txtv=findViewById(R.id.textView);
+ t1= findViewById(R.id.t1);
+ b1.setOnClickListener(new View.OnClickListener() {
+ @Override
+ public void onClick(View v) {
+ intent=new Intent(MainActivity.this,check2.class);
+ s1=txtv.getText().toString();
+ num = Integer.parseInt(t1.getText().toString());
+ for(i=1;i<=num;i++)
+ {
+ f=f*i;
+ }
+ intent.putExtra("msg",s1);
+ intent.putExtra("fact",f);
+ startActivity(intent);
+ }
+ });
+ }
+}
+
+----------------------------
+
+
+secondactivity.java
+import android.widget.TextView;
+public class check2 extends AppCompatActivity {
+ TextView v1;
+ TextView v2;
+Intent i2;
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_check2);
+ v1=findViewById(R.id.txtv1);
+ v2=findViewById(R.id.txtv2);
+ i2=getIntent();
+ Bundle extras= i2.getExtras();
+ String message= extras.getString("msg");
+ long num=extras.getLong("fact");
+ v1.setText("string is "+message);
+ v2.setText("factorial is "+num);
+ }
+}

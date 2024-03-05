@@ -1,0 +1,75 @@
+Slip 2 -Date Time picker
+
+
+Activity_main.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+ xmlns:tools="http://schemas.android.com/tools"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:orientation="vertical"
+ tools:context=".MainActivity">
+ <Button
+ android:id="@+id/button"
+ android:layout_width="wrap_content"
+ android:layout_height="82dp"
+ android:layout_gravity="center"
+ android:layout_marginTop="40dp"
+ android:layout_marginBottom="100dp"
+ android:text="display"/>
+ <Button
+ android:id="@+id/button2"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:layout_gravity="center"
+ android:layout_marginTop="150dp"
+ android:layout_marginBottom="50dp"
+ android:text="display date" />
+ <TextView
+ android:id="@+id/textview1"
+ android:layout_width="match_parent"
+ android:layout_height="wrap_content"
+ android:layout_gravity="center"
+ android:text=" " />
+</LinearLayout>
+
+
+
+----------------------------------------
+MainActivity.java
+
+
+
+public class MainActivity extends AppCompatActivity {
+Button b1,b2;
+TextView t1;
+DatePickerDialog pickerDialog;
+ @Override
+ protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+ b1=findViewById(R.id.button);
+ b2=findViewById(R.id.button2);
+ t1=findViewById(R.id.textview1);
+ b1.setOnClickListener(new View.OnClickListener() {
+ @Override
+ public void onClick(View v) {
+ final Calendar cld= Calendar.getInstance();
+ int day= cld.get(Calendar.DAY_OF_MONTH);
+ int month=cld.get(Calendar.MONTH);
+ int year= cld.get(Calendar.YEAR);
+ pickerDialog = new DatePickerDialog(MainActivity.this, new
+DatePickerDialog.OnDateSetListener() {
+ @Override
+ public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+ t1.setText(dayOfMonth +"/" + month + "/" + year);
+ }
+ } ,year,month,day);
+ pickerDialog.show();
+ }
+ });
+ }
+}

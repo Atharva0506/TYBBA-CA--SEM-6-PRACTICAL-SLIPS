@@ -1,0 +1,111 @@
+Slip24a
+
+Activity_main.xml
+___________________________________________________
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Switch
+        android:id="@+id/simpleSwitch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:checked="false"
+        android:text="Red Color"
+        android:textOff="Off"
+        android:textOn="On" />
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:layout_marginTop="220dp"
+        android:background="#000"/>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="#009284"
+        android:padding="10dp"
+        android:text="Submit"
+        android:textColor="#fff"
+        android:textStyle="bold" />
+
+    <ToggleButton
+        android:id="@+id/toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:text="ToggleButtonBlue"
+        android:textOff="Turn On"
+        android:textOn="Turn Off" />
+</LinearLayout>
+______________________________________________________
+Mainactivity.java
+
+
+public class MainActivity extends AppCompatActivity {
+    Button b1;
+    Switch s1;
+    TextView v1;
+    ToggleButton tb;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        b1= findViewById(R.id.submitButton);
+        s1=findViewById(R.id.simpleSwitch1);
+        v1=findViewById(R.id.tv1);
+        tb=findViewById(R.id.toggle);
+        //tb.setOnClickListener(new View.OnClickListener() {
+          //  @Override
+          //  public void onClick(View v) {
+
+            //    v1.setBackgroundColor(Color.BLUE);
+           // }
+       // });
+
+        tb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    v1.setBackgroundColor(Color.BLUE);
+
+                }
+                else if((isChecked==false))
+                    v1.setBackgroundColor(Color.WHITE);
+
+            }
+        });
+
+        s1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v1.setBackgroundColor(Color.RED);
+            }
+        });
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),""+s1.getTextOn().toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+}
+

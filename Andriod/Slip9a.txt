@@ -1,0 +1,182 @@
+Slip9a
+
+ActivityMain.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TableRow
+
+        android:id="@+id/firstRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <!-- first element of the row-->
+        <TextView
+
+            android:id="@+id/simpleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#b0b0b0"
+            android:layout_column="0"
+            android:padding="18dip"
+            android:text="FNAME"
+            android:textColor="#000"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/T1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:textSize="12dp"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/ssecondRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:id="@+id/simpleTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#b0b0b0"
+            android:layout_column="0"
+            android:padding="18dip"
+            android:text="SNAME"
+            android:textColor="#000"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/T2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#450"
+            android:layout_column="1"
+            android:textSize="12dp"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/thirdRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:id="@+id/simpleTextView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#b0b0b0"
+            android:layout_column="0"
+            android:padding="18dip"
+            android:text="address"
+            android:textColor="#000"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/T3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#450"
+            android:layout_column="1"
+            android:textSize="12dp"/>
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/fourthRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup">
+
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="  Male"
+            android:layout_marginTop="10dp"
+            android:checked="false"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="   Female"
+            android:layout_marginTop="20dp"
+            android:checked="false"
+
+            android:textSize="20dp" />
+    </RadioGroup>
+
+
+    </TableRow>
+    <TableRow
+        android:id="@+id/fifthRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/b1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="submit"
+            android:background="#450"/>
+
+    <Button
+        android:id="@+id/b2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel"
+        android:background="#450"/>
+
+    </TableRow>
+
+</TableLayout>
+
+
+_____________________________________________
+Slip9.java
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText x1,x2,x3;
+    RadioButton r1,r2;
+    Button b1,b2;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        x1=findViewById(R.id.T1);
+        x2=findViewById(R.id.T2);
+        x3=findViewById(R.id.T3);
+        r1=findViewById(R.id.radioMale);
+        r2=findViewById(R.id.radioFemale);
+        b1=findViewById(R.id.b1);
+
+        b2=findViewById(R.id.b2);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),""+x1.getText().toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),""+x2.getText().toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+}
