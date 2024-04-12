@@ -1,0 +1,4 @@
+Create table Company (id, name, address, phno). Create Application for Performing the following operation on the table. 
+a. Insert New Company Details. 
+b. Show All the Company Details.
+

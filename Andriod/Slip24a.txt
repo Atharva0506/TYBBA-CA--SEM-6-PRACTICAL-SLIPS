@@ -1,4 +1,7 @@
 Slip24a
+Create an Android Application that Demonstrate Switch and Toggle Button.
+
+
 
 Activity_main.xml
 ___________________________________________________

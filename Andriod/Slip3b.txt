@@ -1,0 +1,108 @@
+Create an Android application that plays an audio(song) in the background. Audio will not be stopped even if you switch to another activity. To stop the audio, you need to stop the service.
+
+
+Create SErvice class
+
+__________________________________________
+
+public class myservice   extends Service {
+    private MediaPlayer player;
+    @Override
+    public IBinder onBind(Intent intent) {
+        return  null;
+    }
+    @Override
+    public void onCreate() {
+        Toast.makeText(this, "Service was Created", Toast.LENGTH_LONG).show();
+    }
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        player = MediaPlayer.create(this, R.raw.m2);
+        // This will play the ringtone continuously until we stop the service.
+        player.setLooping(true);
+        // It will start the player
+        player.start();
+        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
+        return START_STICKY;
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // Stopping the player when service is destroyed
+        player.stop();
+        Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
+    }
+
+}
+______________________________________________________
+Activity main.xml
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<Button
+        android:id="@+id/btnStart"
+        android:layout_width="wrap_content"
+   	 android:layout_height="wrap_content"
+        android:onClick="startService"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="150dp"
+        android:text="Start Service"/>
+	<Button
+        android:id="@+id/btnstop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="stopService"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="20dp"
+        android:text="Stop Service"/>
+</LinearLayout>
+
+_________________________________________________
+MainActivity .java
+
+
+public class MainActivity extends AppCompatActivity {
+    Button b1,b2;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        b1 = findViewById(R.id.btnStart);
+        b2 = findViewById(R.id.btnstop);
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startService(new Intent(MainActivity.this, myservice.class));
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopService(new Intent(MainActivity.this, myservice.class));
+            }
+        });
+    }
+
+}
+
+_____________________________________________
+AndriodManifest.xml
+
+<application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service android:name=".MyService" />
+    </application>
+</manifest>

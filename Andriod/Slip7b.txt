@@ -1,0 +1,188 @@
+Create Android Application for performing the following operation on the table Customer (id, name, address, phno). (use SQLite database) i) Insert New Customer Details. ii) Show All the Customer Details on Toast Message.
+
+Activity_main.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/idEdtCourseName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Enter customer Name" />
+
+
+    <EditText
+        android:id="@+id/idEdtCourseDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Enter Customer city" />
+
+
+    <EditText
+        android:id="@+id/idEdtCourseTracks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Enter cutomer emailid" />
+
+
+
+    <Button
+        android:id="@+id/idBtnAddCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Add Customer"
+        />
+</LinearLayout>
+
+__________________________________________________
+MainActivity.java
+
+public class MainActivity extends AppCompatActivity {
+
+
+    private EditText cname, ccity, cemailid ;
+    private Button addCustBtn;
+    private dbhandler dbHandler;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        cname = findViewById(R.id.idEdtCourseName);
+        ccity = findViewById(R.id.idEdtCourseTracks);
+        cemailid = findViewById(R.id.idEdtCourseDuration);
+
+        addCustBtn = findViewById(R.id.idBtnAddCourse);
+
+        // creating a new dbhandler class
+        // and passing our context to it.
+        dbHandler = new dbhandler(MainActivity.this);
+
+        addCustBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cName = cname.getText().toString();
+                String city = ccity.getText().toString();
+                String cemail = cemailid.getText().toString();
+
+
+                // validating if the text fields are empty or not.
+                /*if (courseName.isEmpty() && courseTracks.isEmpty() && courseDuration.isEmpty() && courseDescription.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
+                    return;
+                }*/
+
+                // on below line we are calling a method to add new
+                // course to sqlite data and pass all our values to it.
+                dbHandler.addNewCustomer(cName, city, cemail);
+
+                // after adding the data we are displaying a toast message.
+                Toast.makeText(MainActivity.this, "Course has been added.", Toast.LENGTH_SHORT).show();
+                cname.setText("");
+                ccity.setText("");
+                cemailid.setText("");
+
+            }
+        });
+    }
+
+
+    }
+________________________________________________________
+dbhandler.java
+
+
+
+public class dbhandler  extends SQLiteOpenHelper {
+
+    private static final String DB_NAME = "custdb";
+
+
+    private static final int DB_VERSION = 1;
+
+
+    private static final String TABLE_NAME = "customer";
+
+    // below variable is for our id column.
+    private static final String ID = "id";
+
+
+    private static final String NAME = "name";
+
+
+    private static final String City = "city";
+
+
+    private static final String Emailid = "emailid";
+
+
+
+    public dbhandler(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
+
+    // below method is for creating a database by running a sqlite query
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        // on below line we are creating
+        // an sqlite query and we are
+        // setting our column names
+        // along with their data types.
+        String query = "CREATE TABLE " + TABLE_NAME + " ("
+                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + NAME + " TEXT,"
+                + City + " TEXT,"
+                + Emailid + " TEXT)";
+
+
+        db.execSQL(query);
+    }
+    public void addNewCustomer(String Name, String city, String emailid) {
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        ContentValues values = new ContentValues();
+
+        // on below line we are passing all values
+        // along with its key and value pair.
+        values.put(NAME, Name);
+        values.put(City, city);
+        values.put(Emailid, emailid);
+
+        // after adding all values we are passing
+        // content values to our table.
+        db.insert(TABLE_NAME, null, values);
+
+        // at last we are closing our
+        // database after adding database.
+
+        db.close();
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // this method is called to check if the table exists already.
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
+
+
+    }
+
+
+    }
+
+
