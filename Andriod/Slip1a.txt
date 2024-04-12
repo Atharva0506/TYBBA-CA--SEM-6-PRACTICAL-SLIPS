@@ -1,4 +1,6 @@
-Slip 1a and 3a 
+1,2,3,4,5,7,12, 22,24.
+
+Slip 1a
 
 activitymain.xml
 

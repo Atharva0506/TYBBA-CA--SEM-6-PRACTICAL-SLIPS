@@ -1,0 +1,138 @@
+Slip 5 - C) Create an Android Application that will change color of the College Name on click of Push Button and change the font size, font style of text view using xml.
+
+
+Xml file
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ness Wadia College of Commerce"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.155" />
+
+    <Button
+        android:id="@+id/btnRed"
+        android:layout_width="122dp"
+        android:layout_height="65dp"
+        android:text="RED"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.31" />
+
+    <Button
+        android:id="@+id/btnBlue"
+        android:layout_width="122dp"
+        android:layout_height="65dp"
+        android:text="BLUE"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.837"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.309" />
+
+    <Button
+        android:id="@+id/btnGreen"
+        android:layout_width="122dp"
+        android:layout_height="65dp"
+        android:text="GREEN"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.468" />
+
+    <Button
+        android:id="@+id/btnYellow"
+        android:layout_width="122dp"
+        android:layout_height="65dp"
+        android:text="YELLOW"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.837"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.468" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+Main activity file
+package com.example.changecolordemo;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    TextView tv;
+    Button btnRed,btnBlue,btnGreen,btnYellow;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        tv = (TextView) findViewById(R.id.tv);
+        btnRed = (Button) findViewById(R.id.btnRed);
+        btnBlue = (Button) findViewById(R.id.btnBlue);
+        btnGreen = (Button) findViewById(R.id.btnGreen);
+        btnYellow = (Button) findViewById(R.id.btnYellow);
+
+        btnRed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv.setTextSize(30F);
+                tv.setTextColor(Color.parseColor("#FF0000"));
+            }
+        });
+
+        btnBlue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv.setTextSize(20F);
+                tv.setTextColor(Color.parseColor("#0000FF"));
+            }
+        });
+
+        btnGreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv.setTextSize(30F);
+                tv.setTextColor(Color.parseColor("#00FF00"));
+            }
+        });
+
+        btnYellow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv.setTextSize(20F);
+                tv.setTextColor(Color.parseColor("#FFFF00"));
+            }
+        });
+    }
+}
