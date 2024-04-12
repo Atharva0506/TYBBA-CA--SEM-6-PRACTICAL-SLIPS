@@ -1,1 +1,43 @@
- 
+ Write a JSP script to accept a String from a user and display it in reverse order.
+
+
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reverse String</title>
+</head>
+<body>
+    <h2>Reverse String</h2>
+    <form action="ReverseString.jsp" method="post">
+        <label for="inputString">Enter a string:</label>
+        <input type="text" id="inputString" name="inputString" required><br><br>
+        <input type="submit" value="Reverse">
+    </form>
+</body>
+</html>
+
+
+ReverseStringForm.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reversed String</title>
+</head>
+<body>
+    <h2>Reversed String</h2>
+    <% 
+        String inputString = request.getParameter("inputString");
+        String reversedString = new StringBuilder(inputString).reverse().toString();
+    %>
+    <p>Original String: <%= inputString %></p>
+    <p>Reversed String: <%= reversedString %></p>
+</body>
+</html>
+

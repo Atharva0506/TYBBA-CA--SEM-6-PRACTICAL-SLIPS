@@ -1,1 +1,60 @@
- 
+) Create a JSP page to accept a number from a user and display it in words:
+Example: 123 – One Two Three. The output should be in red color.
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Number to Words</title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Number to Words Converter</h2>
+    <form action="ConvertNumber.jsp" method="post">
+        <label for="number">Enter a number:</label>
+        <input type="number" id="number" name="number" required><br><br>
+        <input type="submit" value="Convert">
+    </form>
+</body>
+</html>
+
+
+NumberToWordsForm.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Number to Words Output</title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Number to Words Output</h2>
+    <%
+        String numberStr = request.getParameter("number");
+        int number = Integer.parseInt(numberStr);
+
+        // Convert number to words
+        String[] words = {"Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+
+        out.print("<p>");
+        for (char c : numberStr.toCharArray()) {
+            out.print("<span class=\"red\">" + words[Character.getNumericValue(c)] + "</span> ");
+        }
+        out.print("</p>");
+    %>
+</body>
+</html>

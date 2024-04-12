@@ -1,1 +1,47 @@
- 
+ A) Write a java program to display list of college names from college table. (Assume
+College table (CID, CName, addr) is already created.
+
+
+
+import java.sql.*;
+
+public class DisplayColleges {
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+
+            Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+            conn = DriverManager.getConnection("jdbc:odbc:mydsn");
+
+            statement = conn.createStatement();
+            String sql = "SELECT CName FROM College";
+            resultSet = statement.executeQuery(sql);
+            System.out.println("List of College Names:");
+            while (resultSet.next()) {
+                String collegeName = resultSet.getString("CName");
+                System.out.println(collegeName);
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+

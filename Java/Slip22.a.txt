@@ -1,1 +1,67 @@
- 
+A) Write a java program to display Date and Time of Server machine on client machine
+
+Server:
+
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class Server {
+    public static void main(String[] args) {
+        try {
+            // Create a server socket listening on port 12345
+            ServerSocket serverSocket = new ServerSocket(12345);
+            System.out.println("Server started. Waiting for client...");
+
+            // Accept client connection
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("Client connected.");
+
+            // Create output stream to send date and time to client
+            PrintWriter outToClient = new PrintWriter(clientSocket.getOutputStream(), true);
+
+            // Get current date and time
+            Date currentDate = new Date();
+            String dateTime = currentDate.toString();
+
+            // Send date and time to client
+            outToClient.println(dateTime);
+
+            // Close connections
+            outToClient.close();
+            clientSocket.close();
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+Client
+
+
+import java.io.*;
+import java.net.*;
+
+public class Client {
+    public static void main(String[] args) {
+        try {
+            // Create a socket to connect to the server
+            Socket socket = new Socket("localhost", 12345);
+
+            // Create input stream to receive date and time from server
+            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // Read date and time from server
+            String dateTime = inFromServer.readLine();
+            System.out.println("Date and Time received from server: " + dateTime);
+
+            // Close connections
+            inFromServer.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

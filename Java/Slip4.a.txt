@@ -1,32 +1,40 @@
 Write a Java Program to delete details of students whose initial character of their name is ‘S’.
 Solution:
 
-import java.sql.*;  //step 1 - import the package
+import java.sql.*;
 
-public class DeleteStudent
-{
-	public static void main(String args[]) throws Exception
-	{
-	Connection con;
-	Statement st;
-	String query;
-	
-	Class.forName("com.mysql.jdbc.Driver");  //step 2 load & register the db driver
-	
-	con=DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb","root",""); //step 3 create the connection
-	
-	st=con.createStatement();  //step 4 create the statement
-	
-	query="delete from college where Name like 'S%'"; //step 5 - make the query
-	
-	int n=st.executeUpdate(query); // step 6 fire the query
-	if(n>0)
-	System.out.println(n+" RECORDs DELETED SUCCESSFULLY");
-	else
-	System.out.println("RECORD NOT DELETED");
-	
-	st.close();		//step 7 close the statement and connections
-	con.close();
-	
-	}
+public class DeleteStudents {
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement statement = null;
+        try {
+    
+            Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+            //Connect to the database using DSN
+            conn = DriverManager.getConnection("jdbc:odbc:mydsn");
+
+           
+            statement = conn.createStatement();
+
+            String sql = "DELETE FROM Students WHERE Name LIKE 'S%'";
+            int rowsDeleted = statement.executeUpdate(sql);
+
+            System.out.println(rowsDeleted + " student(s) deleted.");
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

@@ -1,1 +1,18 @@
- 
+Write a java program to display name and priority of a Thread. 
+
+public class ThreadInfoExample {
+    public static void main(String[] args) {
+        
+        Thread thread = new Thread();
+
+       
+        System.out.println("Thread Name: " + thread.getName());
+        System.out.println("Thread Priority: " + thread.getPriority());
+    }
+}
+
+
+
+
+
+

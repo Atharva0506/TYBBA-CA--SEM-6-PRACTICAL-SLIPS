@@ -1,1 +1,50 @@
- 
+Write a Java Program to display the details of College(CID, CName, address, Year)
+on JTable.
+
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+
+public class CollegeDetailsTable extends JFrame {
+    public CollegeDetailsTable() {
+        setTitle("College Details");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(600, 400);
+
+        // Sample college data
+        Object[][] data = {
+                {101, "ABC College", "123 Main St", 2000},
+                {102, "XYZ College", "456 Park Ave", 1998},
+                {103, "PQR College", "789 Elm St", 2005}
+        };
+
+        // Column names
+        String[] columnNames = {"CID", "CName", "Address", "Year"};
+
+        // Create table model with data and column names
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+
+        // Create JTable with model
+        JTable table = new JTable(model);
+
+        // Set column widths
+        table.getColumnModel().getColumn(0).setPreferredWidth(50);
+        table.getColumnModel().getColumn(1).setPreferredWidth(150);
+        table.getColumnModel().getColumn(2).setPreferredWidth(200);
+        table.getColumnModel().getColumn(3).setPreferredWidth(50);
+
+        // Add table to JScrollPane
+        JScrollPane scrollPane = new JScrollPane(table);
+        getContentPane().add(scrollPane, BorderLayout.CENTER);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            CollegeDetailsTable collegeDetailsTable = new CollegeDetailsTable();
+            collegeDetailsTable.setVisible(true);
+        });
+    }
+}
+
+

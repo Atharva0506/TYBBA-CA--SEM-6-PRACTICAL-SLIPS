@@ -2,39 +2,44 @@ Write a java program to count the number of records in a table.
 
 import java.sql.*;
 
-public class Slip12_q1
-{
-	public static void main(String args[])
-	{
-	Connection con;
-	Statement st;
-	String query;
-	ResultSet rs;
+public class CountRecords {
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 
-	try
-	{
-		Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:odbc:mydsn");
 
-		con=DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb","root","");
-		st=con.createStatement();
+            statement = conn.createStatement();
 
-		query="select * from emp";
+            String sql = "SELECT COUNT(*) AS totalRecords FROM YourTableName";
+            resultSet = statement.executeQuery(sql);
 
-		rs=st.executeQuery(query);
-		int count=0;
-		while(rs.next())
-		{
-			count++;
-		}
+            if (resultSet.next()) {
+                int totalRecords = resultSet.getInt("totalRecords");
+                System.out.println("Total records in the table: " + totalRecords);
+            }
 
-		System.out.println("The number of records are: "+count);
-		st.close();
-		con.close();
-	}
-	catch(Exception e)
-	{
-		System.out.println();
-	}
-	}
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 

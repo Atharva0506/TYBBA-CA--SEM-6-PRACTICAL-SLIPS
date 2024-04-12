@@ -1,1 +1,92 @@
- 
+) Write a Java program to accept a number through client terminal, send it to the
+Server, Server calculates its factors and sends it to the client.
+
+Server
+import java.io.*;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Server {
+    public static void main(String[] args) {
+        try {
+            // Create a server socket listening on port 12345
+            ServerSocket serverSocket = new ServerSocket(12345);
+            System.out.println("Server started. Waiting for client...");
+
+            // Accept client connection
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("Client connected.");
+
+            // Create input and output streams
+            BufferedReader inFromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            PrintWriter outToClient = new PrintWriter(clientSocket.getOutputStream(), true);
+
+            // Read number from client
+            int number = Integer.parseInt(inFromClient.readLine());
+            System.out.println("Received number from client: " + number);
+
+            // Calculate factors of the number
+            List<Integer> factors = calculateFactors(number);
+
+            // Send factors to client
+            outToClient.println(factors.toString());
+
+            // Close connections
+            inFromClient.close();
+            outToClient.close();
+            clientSocket.close();
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static List<Integer> calculateFactors(int number) {
+        List<Integer> factors = new ArrayList<>();
+        for (int i = 1; i <= number; i++) {
+            if (number % i == 0) {
+                factors.add(i);
+            }
+        }
+        return factors;
+    }
+}
+
+
+Client
+
+
+import java.io.*;
+import java.net.*;
+
+public class Client {
+    public static void main(String[] args) {
+        try {
+            // Create a socket to connect to the server
+            Socket socket = new Socket("localhost", 12345);
+
+       
+            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter outToServer = new PrintWriter(socket.getOutputStream(), true);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.print("Enter a number: ");
+            int number = Integer.parseInt(reader.readLine());
+
+            outToServer.println(number);
+
+           
+            String factorsStr = inFromServer.readLine();
+            System.out.println("Factors of the number received from server: " + factorsStr);
+
+            inFromServer.close();
+            outToServer.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+

@@ -1,1 +1,60 @@
- 
+A) Write a JSP script to accept the details of Teacher (TID, TName, Desg, Subject ,
+Qualification) and display it on the browser. Use appropriate controls for accepting
+data. 
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Details</title>
+</head>
+<body>
+    <h2>Enter Teacher Details</h2>
+    <form action="DisplayTeacherDetails.jsp" method="post">
+        <label for="tid">Teacher ID:</label>
+        <input type="text" id="tid" name="tid" required><br><br>
+        <label for="tname">Teacher Name:</label>
+        <input type="text" id="tname" name="tname" required><br><br>
+        <label for="desg">Designation:</label>
+        <input type="text" id="desg" name="desg" required><br><br>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required><br><br>
+        <label for="qualification">Qualification:</label>
+        <input type="text" id="qualification" name="qualification" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+
+
+TeacherDetailsForm.jsp
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Details</title>
+</head>
+<body>
+    <h2>Teacher Details</h2>
+    <%
+        String tid = request.getParameter("tid");
+        String tname = request.getParameter("tname");
+        String desg = request.getParameter("desg");
+        String subject = request.getParameter("subject");
+        String qualification = request.getParameter("qualification");
+    %>
+    <p>Teacher ID: <%= tid %></p>
+    <p>Teacher Name: <%= tname %></p>
+    <p>Designation: <%= desg %></p>
+    <p>Subject: <%= subject %></p>
+    <p>Qualification: <%= qualification %></p>
+</body>
+</html>

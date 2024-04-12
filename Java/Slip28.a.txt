@@ -1,1 +1,46 @@
- 
+ A) Write a java program for the implementation of synchronization.
+
+
+public class SynchronizationExample {
+    public static void main(String[] args) {
+        SharedResource sharedResource = new SharedResource();
+
+        // Create multiple threads to access the shared resource
+        Thread thread1 = new Thread(new MyRunnable(sharedResource), "Thread 1");
+        Thread thread2 = new Thread(new MyRunnable(sharedResource), "Thread 2");
+
+        // Start the threads
+        thread1.start();
+        thread2.start();
+    }
+
+    static class SharedResource {
+        private int count = 0;
+
+        // Synchronized method to increment the count
+        public synchronized void increment() {
+            count++;
+            System.out.println(Thread.currentThread().getName() + ": Incremented count to " + count);
+        }
+    }
+
+    static class MyRunnable implements Runnable {
+        private final SharedResource sharedResource;
+
+        public MyRunnable(SharedResource sharedResource) {
+            this.sharedResource = sharedResource;
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 5; i++) {
+                sharedResource.increment();
+                try {
+                    Thread.sleep(1000); // Simulate some processing time
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}

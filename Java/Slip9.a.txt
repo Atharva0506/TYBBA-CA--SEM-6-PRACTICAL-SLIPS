@@ -1,51 +1,53 @@
- Write a java Program in Hibernate to display “Hello world” message.
+Write a Java Program to create a Emp (ENo, EName, Sal) table and insert record
+into it. (Use PreparedStatement Interface)
 
-import java.util.*;
-import java.sql.*;  //step 1 - import the package
+import java.sql.*;
 
-public class InsertPreparedStatement
-{
-	public static void main(String args[]) throws Exception
-	{
-	Connection con;
-	PreparedStatement ps;
-	String query;
-	
-	int a;
-	String b;
-	float c;
-	
-	Scanner sc=new Scanner(System.in);
-	System.out.println("Pls Enter ENO");  
-	a=sc.nextInt();						  	
-	System.out.println("Pls Enter ENAME");
-	b=sc.next();
-	System.out.println("Pls Enter SAL");
-	c=sc.nextFloat();
-	
-	
-	Class.forName("com.mysql.jdbc.Driver");  //step 2 load & register the db driver
-	
-	con=DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb","root",""); //step 3 create the connection
-	
-	query="insert into emp values(?,?,?)"; //step 4 - make the query
-		
-	ps=con.prepareStatement(query);  //step 5
-	create the statement
-	
-	ps.setInt(1,a);
-	ps.setString(2,b);
-	ps.setFloat(3,c);
-	
-	int n=ps.executeUpdate(); // step 6 fire the query
-	if(n==1)
-	System.out.println("RECORD INSERTED SUCCESSFULLY");
-	else
-	System.out.println("RECORD NOT INSERTED");
-	
-	ps.close();		//step 7 close the statement and connections
-	con.close();
-	
-	}
+public class InsertEmployee {
+    public static void main(String[] args) {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            // Step 1: Register JDBC driver
+            Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+            // Step 2: Connect to the database using DSN
+            conn = DriverManager.getConnection("jdbc:odbc:mydsn");
+
+            // Step 3: Create a PreparedStatement
+            String sql = "INSERT INTO Emp (ENo, EName, Sal) VALUES (?, ?, ?)";
+            preparedStatement = conn.prepareStatement(sql);
+
+            // Step 4: Set parameters for the PreparedStatement
+            preparedStatement.setInt(1, 101); // ENo
+            preparedStatement.setString(2, "John"); // EName
+            preparedStatement.setDouble(3, 50000.00); // Sal
+
+            // Step 5: Execute the PreparedStatement
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            // Step 6: Process the result
+            if (rowsInserted > 0) {
+                System.out.println("A new employee record inserted successfully.");
+            } else {
+                System.out.println("Failed to insert employee record.");
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 7: Close the PreparedStatement and connection
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 

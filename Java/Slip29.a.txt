@@ -1,1 +1,67 @@
- 
+A) Write a java program using multithreading for the following:
+1. Display all the odd numbers between 1 to n.
+2. Display all the prime numbers between 1 to n.
+
+
+public class NumberPrinter {
+    public static void main(String[] args) {
+        int n = 100; // Change the value of n as needed
+
+        // Create threads for odd numbers and prime numbers
+        Thread oddThread = new Thread(new OddNumberPrinter(n));
+        Thread primeThread = new Thread(new PrimeNumberPrinter(n));
+
+        // Start the threads
+        oddThread.start();
+        primeThread.start();
+    }
+
+    static class OddNumberPrinter implements Runnable {
+        private final int n;
+
+        public OddNumberPrinter(int n) {
+            this.n = n;
+        }
+
+        @Override
+        public void run() {
+            System.out.println("Odd numbers between 1 to " + n + ":");
+            for (int i = 1; i <= n; i += 2) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    static class PrimeNumberPrinter implements Runnable {
+        private final int n;
+
+        public PrimeNumberPrinter(int n) {
+            this.n = n;
+        }
+
+        @Override
+        public void run() {
+            System.out.println("Prime numbers between 1 to " + n + ":");
+            for (int i = 2; i <= n; i++) {
+                if (isPrime(i)) {
+                    System.out.print(i + " ");
+                }
+            }
+            System.out.println();
+        }
+
+        private boolean isPrime(int num) {
+            if (num <= 1) {
+                return false;
+            }
+            for (int i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+}
+
