@@ -1,7 +1,8 @@
 # TY BBA CA Practical Slips
 
 Welcome to the repository for TY BBA CA Practical Slips! This repository contains practical slips for Android and Advanced Java, designed to assist students in their practical learning.
-**Don't misuse it**: Remember, these practical slips are meant to aid your learning. Please refrain from using them for any unfair means during examinations.
+
+# **Don't misuse it**: Remember, these practical slips are meant to aid your learning. Please refrain from using them for any unfair means during examinations.
 
 ## Contents
 
