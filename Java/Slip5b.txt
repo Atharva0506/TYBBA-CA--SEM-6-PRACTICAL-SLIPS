@@ -3,8 +3,15 @@ Write a java program in multithreading using applet for Traffic signal.
 import java.applet.*;
 import java.awt.*;
 
-
-public class Slip333 extends Applet implements Runnable
+/*
+<html>  
+<body>  
+<applet code="Slip5b.class" width="300" height="300">  
+</applet>  
+</body>  
+</html>  
+*/
+public class Slip5b extends Applet implements Runnable
 {
 	static int x;
 	

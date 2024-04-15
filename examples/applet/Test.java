@@ -1,23 +1,11 @@
-Write a java program using applet for bouncing ball, for each bounce color of ball should change randomly.
-
-
 import java.awt.*;
 import java.applet.*;
 
-/*
-<html>  
-<body>  
-<applet code="Slip5b.class" width="300" height="300">  
-</applet>  
-</body>  
-</html>  
-*/
-public class BounceBall extends Applet implements Runnable
+public class Test extends Applet implements Runnable
 {
 	int x,y;
 	int dy;
 	 
-	
 	public void init()
 	{
 		x=140;
@@ -57,4 +45,5 @@ public class BounceBall extends Applet implements Runnable
 	
 		g.fillOval(x,y,30,30);
 	}
+	
 }

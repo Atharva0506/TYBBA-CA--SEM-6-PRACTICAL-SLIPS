@@ -1,112 +1,52 @@
 Write a SERVLET program that provides information about a HTTP request from a client, such as IP address and browser type. The servlet also provides information about the server on which the servlet is running, such as the operating system type, and the names of currently loaded servlets.
 
-// index.html
-<html>
-<head>
-<title>Slip 4</title>
-</head>
-<body>
-
-<form name="f1" action="sofiya" method="get" >
-  <p>  <input type="Submit" value="Submit" name="B1"></p>
-</form>
-
-</body>
-
-</html>
-
 //web.xml
 <web-app>
-
-	<servlet>
-      <servlet-name>girl</servlet-name>
-      <servlet-class>Slip4</servlet-class>
+	  <servlet>
+        <servlet-name>RequestInfoServlet</servlet-name>
+        <servlet-class>com.example.RequestInfoServlet</servlet-class>
     </servlet>
-	<servlet-mapping>
-        <servlet-name>girl</servlet-name>
-        <url-pattern>/sofiya</url-pattern>
+    
+    <servlet-mapping>
+        <servlet-name>RequestInfoServlet</servlet-name>
+        <url-pattern>/RequestInfoServlet</url-pattern>
     </servlet-mapping>
 </web-app>
 
 Slip4.java
-import java.util.*;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-public class Slip4 extends HttpServlet
-{
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException
-	{
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-        out.println("<html>");
-        out.println("<body>");
-        out.println("<head>");
-        out.println("<title>Request Information</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h3>Request Information</h3><br>");
-        out.println("Method: " + request.getMethod()+"<br>");
-        out.println("Request URI: " + request.getRequestURI()+"<br>");
-        out.println("Protocol: " + request.getProtocol()+"<br>");
-        out.println("PathInfo: " + request.getPathInfo()+"<br>");
-        out.println("Remote Address: " + request.getRemoteAddr()+"<br>");
-        out.println("Remote Host: " + request.getRemoteHost()+"<br>");
-        out.println("Remote User: " + request.getRemoteUser()+"<br>");
-        Enumeration e = request.getHeaderNames();
-        while (e.hasMoreElements())
-        {
-            String name = (String)e.nextElement();
-            String value = request.getHeader(name);
-            out.println(name + " : " + value+"<br>");
+@WebServlet("/RequestInfoServlet")
+public class RequestInfoServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        out.println("<html><head><title>Request Information</title></head><body>");
+        out.println("<h1>Request Information</h1>");
+        out.println("<h2>Client Information:</h2>");
+        out.println("<p>IP Address: " + request.getRemoteAddr() + "</p>");
+        out.println("<p>Browser Type: " + request.getHeader("User-Agent") + "</p>");
+        out.println("<h2>Server Information:</h2>");
+        out.println("<p>Server Name: " + request.getServerName() + "</p>");
+        out.println("<p>Server Port: " + request.getServerPort() + "</p>");
+        out.println("<p>Server Software: " + getServletContext().getServerInfo() + "</p>");
+        out.println("<p>Operating System: " + System.getProperty("os.name") + "</p>");
+        out.println("<p>Servlets Loaded:</p>");
+        out.println("<ul>");
+        // Get all servlet names
+        for (String servletName : getServletContext().getServletRegistrations().keySet()) {
+            out.println("<li>" + servletName + "</li>");
         }
-        out.println("<h3>Server Information</h3><br>");
-	out.println("getServerName(): " + request.getServerName()+"<br>");
-	out.println("getServerPort(): " + request.getServerPort()+"<br>");
-	out.println("getServletContext().getServerInfo(): " + getServletContext().getServerInfo()+"<br>");
-	out.println("getServerInfo() name: " + getServerInfoName(getServletContext().getServerInfo())+"<br>");
-	out.println("getServerInfo() version: " + getServerInfoVersion(getServletContext().getServerInfo())+"<br>");
-	out.println("getServletContext().getAttribute(\"attribute\"): " + getServletContext().getAttribute("attribute")+"<br>");
-
-	ServletContext context = getServletContext();
-	Enumeration names = context.getServletNames();
-	while (names.hasMoreElements())
-	{
-		String name = (String)names.nextElement();
-		Servlet servlet = context.getServlet(name);
-		out.println("Servlet name: " + name+"<br>");
-		out.println("Servlet class: " + servlet.getClass().getName()+"<br>");
-		out.println("Servlet info: " + servlet.getServletInfo()+"<br>");
-	}
-        out.println("</body>");
-        out.println("</html>");
+        out.println("</ul>");
+        out.println("</body></html>");
     }
-
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws IOException, ServletException
-    {
-        doGet(request, response);
-    }
-
-
-	private String getServerInfoName(String serverInfo)
-	{
-	int slash = serverInfo.indexOf('/');
-	if (slash == -1)
-		return serverInfo;
-	else 
-		return serverInfo.substring(0, slash);
-	}
-
-	private String getServerInfoVersion(String serverInfo)
-	{
-	int slash = serverInfo.indexOf('/');
-	if (slash == -1) 
-		return null;
-	else 
-		return serverInfo.substring(slash + 1);
-	}
-
 }
