@@ -1,0 +1,42 @@
+Write a program in java which will show lifecycle (creation, sleep, and dead) of a thread. Program should print randomly the name of thread and value of sleep time. The name of the thread should be hard coded through constructor. The sleep time of a thread will be a random integer in the range 0 to 4999.
+
+import java.util.*;
+ 
+class DemoThread extends Thread
+{
+	DemoThread(String nm)
+	{
+		super(nm);
+	}
+
+	public void run()
+	{
+	}
+
+}
+
+public class Slip12_q2
+{
+	public static void main(String args[]) throws InterruptedException
+	{
+	DemoThread t1=new DemoThread("EnumTech");
+	System.out.println(t1.getState());
+	t1.start();
+	System.out.println(t1.getState());
+	System.out.println("Thread is running");
+	System.out.println(t1.getName());
+	Random r=new Random();
+	int s=r.nextInt(5000);
+	System.out.println("Thread will sleeping for " + s + "millisecs"); 
+	try
+	{
+		t1.sleep(s);
+	}
+	catch(InterruptedException ie)
+	{
+	}
+	t1.join();
+	System.out.println("Thread is no more");
+	System.out.println(t1.getState());
+	}	
+}
