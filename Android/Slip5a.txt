@@ -1,4 +1,4 @@
-Slip 5 - C) Create an Android Application that will change color of the College Name on click of Push Button and change the font size, font style of text view using xml.
+Slip 5  Create an Android Application that will change color of the College Name on click of Push Button and change the font size, font style of text view using xml.
 
 
 Xml file

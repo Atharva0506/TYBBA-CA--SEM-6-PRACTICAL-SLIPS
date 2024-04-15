@@ -1,4 +1,4 @@
-Slip 4 - C) Create an Android App, it reads the Students Details (Name, Surname, Class, Gender, Hobbies, Marks) and Display the all information in another activity in table format on click of Submit button
+Slip 4  Create an Android App, it reads the Students Details (Name, Surname, Class, Gender, Hobbies, Marks) and Display the all information in another activity in table format on click of Submit button
 
 
 xml 1
@@ -220,7 +220,7 @@ xml 2 file
 </TableLayout>
 
 Second activity file
-package com.example.slip4_q1;
+
 
 import android.os.Bundle;
 import android.widget.TextView;

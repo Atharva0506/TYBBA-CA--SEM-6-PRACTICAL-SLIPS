@@ -104,7 +104,7 @@ Intent i2;
  @Override
  protected void onCreate(Bundle savedInstanceState) {
  super.onCreate(savedInstanceState);
- setContentView(R.layout.activity_check2);
+ setContentView(R.layout.secondactivity);
  v1=findViewById(R.id.txtv1);
  v2=findViewById(R.id.txtv2);
  i2=getIntent();
