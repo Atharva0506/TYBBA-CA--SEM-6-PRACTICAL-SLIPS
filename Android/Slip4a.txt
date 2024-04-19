@@ -128,7 +128,8 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-xml 2 file
+activity_second file
+
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"

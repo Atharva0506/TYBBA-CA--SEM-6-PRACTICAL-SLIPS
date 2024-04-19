@@ -16,6 +16,8 @@ XML FILE
         android:layout_gravity="center"
         android:layout_marginStart="50dp"/>
     </LinearLayout>
+
+    
 JAVA FILE
 package com.example.slip12;
 import androidx.annotation.NonNull;
